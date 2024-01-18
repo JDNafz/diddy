@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Enter a song name!</Text>
+      <Text>Enter a song name and the artist!</Text>
       <View style={styles.inputContainer}>
         <TextInput
           onChangeText={(text) => setSearch(text)}
