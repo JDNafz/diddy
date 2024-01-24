@@ -1,22 +1,29 @@
-import { Text, View, TextInput, Button, Image, Linking } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  Image,
+  Linking,
+  ScrollView,
+} from "react-native";
 import styles from "./styles.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "@env";
 
 export default function App() {
   const [search, setSearch] = useState("");
-  const [song, setSong] = useState({});
+  const [song, setSong] = useState([]);
 
   const handleSearch = () => {
     console.log(search);
     getSong(search);
   };
 
-  // const handleChange = (event) => {
-  //   let search=this.state.search;
-  //   setSearch(search)
-  // }
+  useEffect(() => {
+    getSong(search);
+  }, []);
 
   //GET request
   const getSong = (search) => {
@@ -39,7 +46,7 @@ export default function App() {
           "Get Success:",
           response.data.tracks.hits[0].track.images.coverart
         );
-        setSong(response.data.tracks.hits[0].track);
+        setSong(response.data.tracks.hits);
         console.log(song);
       })
       .catch((error) => {
@@ -48,49 +55,64 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Enter a song name and the artist!</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={(text) => setSearch(text)}
-          value={search}
-          placeholder="Type here to search"
-          style={styles.input}
-        />
-      </View>
-      <View style={styles.button}>
-        <Button title="Search" color={"black"} onPress={handleSearch} />
-      </View>
-      {Object.keys(song).length ? (
-        <View style={styles.songContainer}>
-          <Image
-            style={styles.coverart}
-            source={{ uri: `${song.images.coverart}` }}
-          />
-          <Text style={styles.text}>{song.title}</Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ flex: 1, height: 1, backgroundColor: "grey" }} />
-            <View>
-              <Text
-                onPress={() => Linking.openURL(`${song.url}`)}
-                style={{
-                  textAlign: "center",
-                  paddingHorizontal: 8,
-                  color: "blue",
-                }}
-              >
-                Shazam
-              </Text>
+    <ScrollView style={{ backgroundColor: "#9ED8DB" }}>
+      <View style={styles.container}>
+        <View style={styles.searchContainer}>
+          <Text style={styles.title}>Diddy</Text>
+          <Text style={{ textAlign: "center" }}>
+            Enter a song name and the artist!
+          </Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              onChangeText={(text) => setSearch(text)}
+              value={search}
+              placeholder="Type here to search"
+              style={styles.input}
+            />
+            <View style={styles.button}>
+              <Button title="Search" color={"black"} onPress={handleSearch} />
             </View>
-            <View style={{ flex: 1, height: 1, backgroundColor: "grey" }} />
           </View>
-          <Image
-            style={styles.artistart}
-            source={{ uri: `${song.images.background}` }}
-          />
-          <Text style={styles.text}>{song.subtitle}</Text>
         </View>
-      ) : null}
-    </View>
+        {Object.keys(song).length ? (
+          <>
+            {song.map((item, i) => (
+              <View style={styles.songContainer} key={i}>
+                <Image
+                  style={styles.coverart}
+                  source={{ uri: `${item.track.images.coverart}` }}
+                />
+                <Text style={styles.text}>{item.track.title}</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View
+                    style={{ flex: 1, height: 1, backgroundColor: "grey" }}
+                  />
+                  <View>
+                    <Text
+                      onPress={() => Linking.openURL(`${item.track.url}`)}
+                      style={{
+                        textAlign: "center",
+                        paddingHorizontal: 8,
+                        color: "blue",
+                      }}
+                    >
+                      Shazam
+                    </Text>
+                  </View>
+                  <View
+                    style={{ flex: 1, height: 1, backgroundColor: "grey" }}
+                  />
+                </View>
+                <Image
+                  style={styles.artistart}
+                  source={{ uri: `${item.track.images.background}` }}
+                />
+                <Text style={styles.text}>{item.track.subtitle}</Text>
+              </View>
+            ))}
+          </>
+        ) : null}
+      </View>
+    </ScrollView>
   );
 }
