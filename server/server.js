@@ -1,23 +1,23 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
-// const app = express();
+const app = express();
 
-// // Route includes
-// const shazamRouter = require("./routes/shazam.router");
+// Route includes
+const shazamRouter = require("./routes/shazam.router");
 
-// // Body parser middleware
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+// Body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// /* Routes */
-// app.use("/api/shazam", shazamRouter);
+/* Routes */
+app.use("/api/shazam", shazamRouter);
 
-// // App Set //
-// const PORT = process.env.PORT || 5000;
+// App Set //
+const PORT = process.env.PORT || 5000;
 
-// /** Listen * */
-// app.listen(PORT, () => {
-//   console.log(`Listening on port: ${PORT}`);
-// });
+/** Listen * */
+app.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
