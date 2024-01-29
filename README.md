@@ -27,3 +27,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 import App from '../../src/components/App';
 ```
 - [ ] Existing team member adds you to the github repo
+- [ ] create a .env file with the following contents
+```
+API_KEY="<the shazam api key>"
+```
