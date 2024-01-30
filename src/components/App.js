@@ -7,13 +7,17 @@ import {
   Linking,
   ScrollView,
 } from "react-native";
-import styles from "./styles.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "@env";
 
+import styles from "./styles.jsx";
+import RecordButton from "./RecordButton.js";
+
+
 export default function App() {
   const [search, setSearch] = useState("");
+  const [recording, setRecording] = useState(undefined);
   const [song, setSong] = useState([]);
 
   const handleSearch = () => {
@@ -27,6 +31,9 @@ export default function App() {
 
   //GET request
   const getSong = (search) => {
+    if (!search) {
+      return;
+    }
     axios({
       method: "GET",
       url: "https://shazam.p.rapidapi.com/search",
@@ -59,6 +66,13 @@ export default function App() {
       <View style={styles.container}>
         <View style={styles.searchContainer}>
           <Text style={styles.title}>Diddy</Text>
+          <Text style={{ textAlign: "center" }}>
+            Record a clip of a song and we'll tell you what it is!
+          </Text>
+          <RecordButton recording={recording} setRecording={setRecording} />
+          <Text style={{ textAlign: "center" }}>
+            OR
+          </Text>
           <Text style={{ textAlign: "center" }}>
             Enter a song name and the artist!
           </Text>
