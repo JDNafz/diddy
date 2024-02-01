@@ -6,11 +6,24 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#9ED8DB",
   },
+  buttonContainer: {
+    width: 90,
+    height: 60,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 3,
+  },
   button: {
-    margin: 10,
-    borderWidth: 2,
-    borderRadius: 25,
-    backgroundColor: "white",
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  buttonLabel: {
+    color: '#fff',
+    fontSize: 16,
   },
   inputContainer: {
     margin: 15,
@@ -19,7 +32,7 @@ export default styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: 150,
+    width: 160,
     backgroundColor: "white",
     paddingLeft: 15,
     paddingRight: 15,

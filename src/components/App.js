@@ -69,8 +69,8 @@ export default function App() {
               placeholder="Type here to search"
               style={styles.input}
             />
-            <View style={styles.button}>
-              <Button title="Search" color={"black"} onPress={handleSearch} />
+            <View style={styles.buttonContainer}>
+              <Button title="Search" style={styles.button} color="black" onPress={handleSearch} />
             </View>
           </View>
         </View>
