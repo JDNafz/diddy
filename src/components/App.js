@@ -7,10 +7,13 @@ import {
   Linking,
   ScrollView,
 } from "react-native";
-import styles from "./styles.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "@env";
+
+// components
+import RecordingContainer from "./Recorder.js";
+import styles from "./styles.jsx";
 
 export default function App() {
   const [search, setSearch] = useState("");
@@ -73,6 +76,7 @@ export default function App() {
               <Button title="Search" color={"black"} onPress={handleSearch} />
             </View>
           </View>
+          <RecordingContainer updateSong={setSong} />
         </View>
         {Object.keys(song).length ? (
           <>
